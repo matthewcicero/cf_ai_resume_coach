@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <body>
+    <h2>Resume Coach (local test)</h2>
+    <button id="go">Generate</button>
+    <pre id="out"></pre>
+    <script>
+      document.getElementById("go").onclick = async () => {
+        const r = await fetch("/api/generate", { method: "POST", body: "{}" });
+        const j = await r.json();
+        document.getElementById("out").textContent = j.reply;
+      };
+    </script>
+  </body>
+</html>
