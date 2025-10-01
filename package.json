@@ -1,0 +1,11 @@
+{
+  "name": "cf_ai_resume_coach",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": { "wrangler": "^4.40.3" },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  }
+}
