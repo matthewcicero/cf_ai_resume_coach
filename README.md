@@ -28,3 +28,5 @@ This app tailors resume bullets to job descriptions, rewrites existing bullets, 
    ```bash
    git clone https://github.com/matthewcicero/cf_ai_resume_coach.git
    cd cf_ai_resume_coach
+## 🌐 Live Demo
+https://cf_ai_resume_coach_sqlite.maci4973.workers.dev
