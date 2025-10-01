@@ -10,8 +10,8 @@ name = "SESSIONS"
 class_name = "SessionDO"
 
 [[migrations]]
-tag = "v1"
-new_sqlite_classes = ["SessionDO"]
+tag = "v2"                         # <— bump this each time you change migrations
+new_sqlite_classes = ["SessionDO"] # <— required for free plan Durable Objects
 
 [assets]
 directory = "public"
