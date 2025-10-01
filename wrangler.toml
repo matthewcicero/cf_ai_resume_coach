@@ -1,14 +1,14 @@
-name = "cf_ai_resume_coach_sqlite"  
+name = "cf_ai_resume_coach_sqlite"
 main = "src/worker.ts"
 compatibility_date = "2025-10-01"
 
 [ai]
 binding = "AI"
 
-[[durable_objects.bindings]]
-name = "SESSIONS"
-class_name = "SessionDO"
-
+[durable_objects]
+bindings = [
+  { name = "SESSIONS", class_name = "SessionDO" }
+]
 
 [[migrations]]
 tag = "v1"
