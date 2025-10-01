@@ -1,4 +1,4 @@
-name = "cf_ai_resume_coach"
+name = "cf_ai_resume_coach_sqlite"  
 main = "src/worker.ts"
 compatibility_date = "2025-10-01"
 
@@ -9,9 +9,10 @@ binding = "AI"
 name = "SESSIONS"
 class_name = "SessionDO"
 
+
 [[migrations]]
-tag = "v2"                         # <— bump this each time you change migrations
-new_sqlite_classes = ["SessionDO"] # <— required for free plan Durable Objects
+tag = "v1"
+new_sqlite_classes = ["SessionDO"]
 
 [assets]
 directory = "public"
