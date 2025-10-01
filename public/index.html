@@ -1,14 +1,73 @@
 <!doctype html>
 <html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Resume Coach (Cloudflare AI)</title>
+    <style>
+      body{font-family:system-ui,Arial,sans-serif;max-width:840px;margin:24px auto;padding:0 12px}
+      textarea,input,select,button{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
+      .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .card{border:1px solid #eee;border-radius:12px;padding:16px;margin:12px 0}
+      .small{color:#666;font-size:13px}
+      pre{white-space:pre-wrap;background:#fafafa;border:1px solid #eee;border-radius:8px;padding:12px}
+    </style>
+  </head>
   <body>
-    <h2>Resume Coach (local test)</h2>
-    <button id="go">Generate</button>
-    <pre id="out"></pre>
+    <h2>Resume Coach (Cloudflare Workers AI)</h2>
+    <div class="card">
+      <label>Mode</label>
+      <select id="mode">
+        <option value="MATCH_JD">Match JD → tailored bullets</option>
+        <option value="REWRITE_BULLET">Rewrite bullet</option>
+        <option value="STAR">STAR story</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label>Job Description (for MATCH_JD)</label>
+          <textarea id="jd" rows="8" placeholder="Paste JD here"></textarea>
+        </div>
+        <div>
+          <label>Resume / Background</label>
+          <textarea id="resume" rows="8" placeholder="Paste your background here"></textarea>
+        </div>
+      </div>
+
+      <label>Original bullet (for REWRITE_BULLET)</label>
+      <input id="bullet" placeholder="E.g., Led a team to build X..." />
+
+      <label>Context (for STAR)</label>
+      <textarea id="context" rows="4" placeholder="Describe a situation to convert into STAR"></textarea>
+
+      <button id="go">Generate</button>
+      <div class="small">Stores ~10 recent turns per session for better follow-ups.</div>
+    </div>
+
+    <div class="card">
+      <h3>Output</h3>
+      <pre id="out"></pre>
+      <div id="model" class="small"></div>
+    </div>
+
     <script>
-      document.getElementById("go").onclick = async () => {
-        const r = await fetch("/api/generate", { method: "POST", body: "{}" });
+      const el = (id)=>document.getElementById(id);
+      el("go").onclick = async () => {
+        const body = {
+          mode: el("mode").value,
+          jd: el("jd").value,
+          resume: el("resume").value,
+          bullet: el("bullet").value,
+          context: el("context").value
+        };
+        const r = await fetch("/api/generate", {
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify(body)
+        });
         const j = await r.json();
-        document.getElementById("out").textContent = j.reply;
+        el("out").textContent = j.reply || "(no output)";
+        el("model").textContent = j.model ? `Model: ${j.model}` : "";
       };
     </script>
   </body>
